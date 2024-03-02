@@ -2,6 +2,7 @@ const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 
 const errorController = require("./controllers/error.js");
 const sequelize = require("./util/database.js");
@@ -21,6 +22,7 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(dotenv.config());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
