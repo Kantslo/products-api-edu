@@ -13,6 +13,8 @@ const CartItem = require("./models/cart-item.js");
 const Order = require("./models/order.js");
 const OrderItem = require("./models/order-item.js");
 
+dotenv.config();
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -22,7 +24,6 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(dotenv.config());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
