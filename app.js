@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 
 const errorController = require("./controllers/error.js");
-const mongoConnect = require("./util/database.js");
+const mongoConnect = require("./util/database.js").mongoConnect;
 
 dotenv.config();
 
@@ -29,9 +29,9 @@ app.use((req, res, next) => {
   //   .catch((err) => {
   //     console.log(err);
   //   });
+  next();
 });
-
-// app.use("/admin", adminRoutes);
+app.use("/admin", adminRoutes);
 // app.use(shopRoutes);
 
 app.use(errorController.get404);
