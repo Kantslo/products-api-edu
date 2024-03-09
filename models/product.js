@@ -1,3 +1,5 @@
+const { v4: uuid } = require("uuid");
+
 const getDb = require("../util/database.js").getDb;
 
 class Product {
@@ -6,6 +8,7 @@ class Product {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
+    this.id = uuid();
   }
 
   save() {
@@ -38,7 +41,7 @@ class Product {
     const db = getDb();
     return db
       .collection("products")
-      .find({ _id: prodId })
+      .find({ id: prodId })
       .next()
       .then((product) => {
         console.log(product);
