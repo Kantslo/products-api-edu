@@ -3,19 +3,25 @@ const { v4: uuid } = require("uuid");
 const getDb = require("../util/database.js").getDb;
 
 class Product {
-  constructor(title, price, description, imageUrl) {
+  constructor(title, price, description, imageUrl, id = uuid()) {
     this.title = title;
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this.id = uuid();
+    this.id = id;
   }
 
   save() {
     const db = getDb();
-    return db
-      .collection("products")
-      .insertOne(this)
+    let dbOp;
+    if (this.id) {
+      dbOp = db
+        .collection("products")
+        .updateOne({ id: this.id }, { $set: this });
+    } else {
+      dbOp = db.collection("products").insertOne(this);
+    }
+    return dbOp
       .then((result) => {
         console.log(result);
       })
