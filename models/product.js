@@ -1,23 +1,23 @@
-const { v4: uuid } = require("uuid");
-
-const getDb = require("../util/database.js").getDb;
+const mongodb = require("mongodb");
+const getDb = require("../util/database").getDb;
 
 class Product {
-  constructor(title, price, description, imageUrl, id = uuid()) {
+  constructor(title, price, description, imageUrl, id) {
     this.title = title;
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this.id = id;
+    this._id = id;
   }
 
   save() {
     const db = getDb();
     let dbOp;
-    if (this.id) {
+    if (this._id) {
+      // Update the product
       dbOp = db
         .collection("products")
-        .updateOne({ id: this.id }, { $set: this });
+        .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
     } else {
       dbOp = db.collection("products").insertOne(this);
     }
@@ -25,7 +25,9 @@ class Product {
       .then((result) => {
         console.log(result);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   static fetchAll() {
@@ -47,7 +49,7 @@ class Product {
     const db = getDb();
     return db
       .collection("products")
-      .find({ id: prodId })
+      .find({ _id: new mongodb.ObjectId(prodId) })
       .next()
       .then((product) => {
         console.log(product);
