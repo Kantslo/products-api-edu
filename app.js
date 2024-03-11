@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 
 const errorController = require("./controllers/error.js");
 const mongoConnect = require("./util/database.js").mongoConnect;
+const User = require("./models/user.js");
 
 dotenv.config();
 
@@ -21,14 +22,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  // User.findByPk(1)
-  //   .then((user) => {
-  //     req.user = user;
-  //     next();
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  User.findById("65ef6e72c888da0233c4c0f4")
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   next();
 });
 app.use("/admin", adminRoutes);
