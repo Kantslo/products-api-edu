@@ -1,7 +1,7 @@
 const Product = require("../models/product.js");
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
+  Product.find()
     .then((products) => {
       res.render("shop/product-list", {
         prods: products,
@@ -25,23 +25,10 @@ exports.getProduct = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
-
-  // * This is an alternative way to fetch the single product using sequelize
-  // Product.findAll({ where: { id: prodId } })
-  //   .then((products) => {
-  //     res.render("shop/product-detail", {
-  //       product: products[0],
-  //       pageTitle: products[0].title,
-  //       path: "/products",
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 };
 
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll()
+  Product.find()
     .then((products) => {
       res.render("shop/index", {
         prods: products,
@@ -56,8 +43,9 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   req.user
-    .getCart()
-    .then((products) => {
+    .populate("cart.items.productId")
+    .then((user) => {
+      const products = user.cart.items;
       res.render("shop/cart", {
         path: "/cart",
         pageTitle: "Your Cart",
