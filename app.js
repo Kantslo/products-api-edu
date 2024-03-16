@@ -22,9 +22,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  User.findById("65ef6e72c888da0233c4c0f4")
+  User.findById("65f4f779ed6d26cfab4633a1")
     .then((user) => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
+      req.user = user;
       next();
     })
     .catch((err) => {
@@ -39,6 +39,18 @@ app.use(errorController.get404);
 mongoose
   .connect(process.env.MONGO_URL)
   .then((result) => {
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          name: "Kantslo",
+          email: "kantslo@mail.com",
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
     app.listen(3000);
   })
   .catch((err) => {
