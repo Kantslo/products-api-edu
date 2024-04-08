@@ -16,7 +16,7 @@ dotenv.config();
 
 const app = express();
 const store = new MongoDBStore({
-    uri: process.env.MONGO_URL,
+    uri: process.env.MONGO_URI,
     collection: "sessions",
 });
 const csrfProtection = csrf({});
