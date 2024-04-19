@@ -14,31 +14,31 @@ router.get("/products", isAuth, adminController.getProducts);
 
 // /admin/add-product => POST
 router.post(
-    "/add-product",
-    isAuth,
-    [
-        body("title").isString().isLength({ min: 3 }).trim(),
-        body("imageUrl").isURL(),
-        body("price").isFloat(),
-        body("description").isLength({ min: 5, max: 400 }).trim(),
-    ],
-    adminController.postAddProduct
+  "/add-product",
+  isAuth,
+  [
+    body("title").isString().isLength({ min: 3 }).trim(),
+    body("imageUrl").isURL(),
+    body("price").isFloat(),
+    body("description").isLength({ min: 5, max: 400 }).trim(),
+  ],
+  adminController.postAddProduct
 );
 
 router.get("/edit-product/:productId", isAuth, adminController.getEditProduct);
 
 router.post(
-    "/edit-product",
-    [
-        body("title").isString().isLength({ min: 3 }).trim(),
-        body("imageUrl").isURL(),
-        body("price").isFloat(),
-        body("description").isLength({ min: 5, max: 400 }).trim(),
-    ],
-    isAuth,
-    adminController.postEditProduct
+  "/edit-product",
+  [
+    body("title").isString().isLength({ min: 3 }).trim(),
+    body("imageUrl").isURL(),
+    body("price").isFloat(),
+    body("description").isLength({ min: 5, max: 400 }).trim(),
+  ],
+  isAuth,
+  adminController.postEditProduct
 );
 
-router.post("/delete-product", isAuth, adminController.postDeleteProduct);
+router.delete("/product/:productId", isAuth, adminController.deleteProduct);
 
 module.exports = router;
