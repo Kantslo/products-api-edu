@@ -25,6 +25,7 @@
     "express-validator": "^7.0.1",
     "mongodb": "^6.4.0",
     "mongoose": "^8.2.2",
-    "nodemailer": "^6.9.13"
+    "nodemailer": "^6.9.13",
+    "stripe": "^15.3.0"
   }
 }
