@@ -29,7 +29,7 @@ const shopRoutes = require("./routes/shop.js");
 const authRoutes = require("./routes/auth.js");
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(path.resolve("public"))));
 app.use(
   session({
     secret: process.env.SESSION_SECRET_KEY,
