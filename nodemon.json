@@ -1,0 +1,10 @@
+{
+  "env": {
+    "MONGO_URI": "mongodb+srv://gqancliani:ZTY2kuaKErmQ6jJ2@cluster0.tqqlpyv.mongodb.net/shop",
+    "SESSION_SECRET_KEY": "YuY5tmsM2bTHpEfO0Jb6PqAQlEg5ENGK",
+    "SENDER_EMAIL": "gqancliani@gmail.com",
+    "SENDER_PASSWORD": "dwed woyw fvvq huab",
+
+    "STRIPE_SECRET_KEY": "sk_test_51P0uUB06gg43QdzV6SNiqOzUjo0XVs5D2rYQf7slUaKdzOpQZwcUofH81pfiw7wtmZL8itzrfadM7hnT2Hu7tiMB00NrT9HtgW"
+  }
+}
