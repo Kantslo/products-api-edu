@@ -1,7 +1,7 @@
-const deleteProduct = (btn) => {
+const handleDeleteProduct = (event) => {
+  const btn = document.getElementById("delete-btn");
   const prodId = btn.parentNode.querySelector("[name=productId]").value;
   const csrf = btn.parentNode.querySelector("[name=_csrf]").value;
-
   const productElement = btn.closest("article");
 
   fetch("/admin/product/" + prodId, {
@@ -10,9 +10,7 @@ const deleteProduct = (btn) => {
       "csrf-token": csrf,
     },
   })
-    .then((result) => {
-      return result.json();
-    })
+    .then((result) => result.json())
     .then((data) => {
       console.log(data);
       productElement.parentNode.removeChild(productElement);
@@ -21,3 +19,9 @@ const deleteProduct = (btn) => {
       console.log(err);
     });
 };
+
+document.querySelectorAll(".btn").forEach((button) => {
+  button.addEventListener("click", function () {
+    handleDeleteProduct();
+  });
+});
